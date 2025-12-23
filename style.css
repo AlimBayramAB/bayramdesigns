@@ -1,0 +1,148 @@
+/* ------------------------------------------------------------------
+   FONTS & IMPORTS
+   ------------------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&family=Syncopate:wght@400;700&display=swap');
+
+/* ------------------------------------------------------------------
+   VARIABLES
+   ------------------------------------------------------------------ */
+:root {
+    --bg-color: #f8f9fa; /* Architectural White */
+    --text-primary: #1a1a1a;
+    --text-secondary: #6e6e73;
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.65);
+}
+
+/* ------------------------------------------------------------------
+   GLOBAL RESETS
+   ------------------------------------------------------------------ */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    cursor: none; /* Hides default cursor for custom one */
+}
+
+.font-display {
+    font-family: 'Syncopate', sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   3D BACKGROUND (WEBGL)
+   ------------------------------------------------------------------ */
+#webgl-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 50; /* High Z-Index to be in front of bg image but behind UI */
+    pointer-events: none; /* Allows clicking through */
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    mix-blend-mode: multiply; /* Blends nicely with white background */
+}
+
+/* ------------------------------------------------------------------
+   CUSTOM CURSOR
+   ------------------------------------------------------------------ */
+.cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: black;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.cursor-ring.active {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(2px);
+    border-color: transparent;
+    mix-blend-mode: difference;
+}
+
+/* ------------------------------------------------------------------
+   UI COMPONENTS (Glassmorphism)
+   ------------------------------------------------------------------ */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+/* ------------------------------------------------------------------
+   3D TILT CARDS
+   ------------------------------------------------------------------ */
+.tilt-card-wrap {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.tilt-card {
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.tilt-shadow {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background: black;
+    filter: blur(40px);
+    opacity: 0.15;
+    transform: translateZ(-50px);
+    z-index: -1;
+}
+
+/* ------------------------------------------------------------------
+   ANIMATIONS & UTILITIES
+   ------------------------------------------------------------------ */
+.line-mask {
+    overflow: hidden;
+    display: block;
+}
+
+.line-reveal {
+    display: block;
+    transform: translateY(100%);
+}
+
+.section-curve {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 10;
+}
+
+.section-curve svg {
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
