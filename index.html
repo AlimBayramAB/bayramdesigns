@@ -64,14 +64,12 @@
 
         <!-- HERO SECTION -->
         <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-            <!-- BACKGROUND IMAGE (Sent to back) -->
-            <div class="absolute inset-0 z-0">
+            <!-- BACKGROUND IMAGE -->
+            <div class="absolute inset-0 z-0 flex items-center justify-end">
                 <img src="w400-ab-mirror-c739ff.png" alt="Alim Bayram Background"
-                    class="w-full h-full object-cover grayscale"
-                    style="filter: contrast(1.2) brightness(0.9); transform: translate(50px, 50px);"
+                    class="h-[90vh] w-auto object-contain grayscale"
+                    style="filter: contrast(1.2) brightness(0.9); mask-image: linear-gradient(to bottom, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);"
                     onerror="this.src='https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop'">
-                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-gradient-to-t from-[#f8f9fa] to-transparent"></div>
-
             </div>
 
             <div
@@ -79,26 +77,34 @@
 
                 <!-- LEFT SIDE: TYPOGRAPHY (Now Spans Full Width to prevent clipping) -->
                 <div class="lg:col-span-12 flex flex-col justify-center text-left z-20">
-                    <div class="overflow-hidden mb-6">
-                        <p class="font-display text-xs font-bold uppercase tracking-[0.2em] text-gray-500 line-reveal">
-                            Architecture Student From Azerbaijan</p>
+                    <!-- ALIM + Subtitle Group -->
+                    <div class="w-fit flex flex-col items-start">
+                        <div class="overflow-hidden w-full mb-4">
+                            <p
+                                class="font-display text-[0.6rem] md:text-[0.65rem] lg:text-[10px] xl:text-xs font-bold uppercase text-gray-500 line-reveal text-justify-last">
+                                Architecture Student From Azerbaijan</p>
+                        </div>
+                        <!-- Giant Typography: ALIM -->
+                        <h1
+                            class="font-display text-[10vw] leading-[0.8] font-bold tracking-tighter text-black relative z-30">
+                            <span class="line-mask"><span class="line-reveal">ALIM</span></span>
+                        </h1>
                     </div>
-                    <!-- Giant Typography -->
+
+                    <!-- Giant Typography: BAYRAM -->
                     <h1
-                        class="font-display text-[10vw] leading-[0.85] font-bold tracking-tighter text-black relative z-30">
-                        <span class="line-mask"><span class="line-reveal">ALIM</span></span>
-                        <span class="line-mask"><span class="line-reveal -ml-4">BAYRAM</span></span>
+                        class="font-display text-[10vw] leading-[0.8] font-bold tracking-tighter text-black relative z-30">
+                        <span class="line-mask"><span class="line-reveal -ml-1 lg:-ml-4">BAYRAM</span></span>
                     </h1>
 
                     <div class="mt-12 max-w-lg pointer-events-auto">
-                        <div
-                            class="glass-panel p-8 rounded-[2rem] backdrop-blur-xl border border-white/40 reveal-left delay-500">
-                            <i data-lucide="quote" class="w-6 h-6 mb-4 text-gray-400"></i>
-                            <p class="font-light text-sm leading-relaxed text-gray-700 mb-6 italic">
+                        <div class="glass-panel p-8 rounded-[2rem] backdrop-blur-xl reveal-left">
+                            <i data-lucide="quote" class="w-6 h-6 mb-4 text-gray-400 quote-element"></i>
+                            <p class="font-light text-sm leading-relaxed text-gray-700 mb-6 italic quote-element">
                                 "I don't think architecture is only about shelter, it's only about a very simple
                                 enclosure. It should be able to excite you, to calm you, to make you think."
                             </p>
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-center justify-between quote-element">
                                 <span class="text-xs font-bold uppercase tracking-widest opacity-50">— Zaha Hadid</span>
                                 <a href="#works"
                                     class="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-widest hover-trigger">
@@ -746,8 +752,34 @@
         });
 
         gsap.registerPlugin(ScrollTrigger);
-        gsap.to(document.querySelectorAll('.line-reveal'), { y: 0, duration: 1.5, stagger: 0.2, ease: "power4.out", delay: 0.5 });
-        gsap.to(".reveal-left", { x: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.5 });
+
+        // Initial landing animations - Sequential Fade-In
+        const heroTimeline = gsap.timeline({ delay: 1.2 });
+
+        heroTimeline
+            .to(".line-reveal", {
+                opacity: 1,
+                duration: 2,
+                stagger: 0.3,
+                ease: "expo.out"
+            })
+            .fromTo(".reveal-left",
+                { opacity: 0, x: -30 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 2,
+                    ease: "expo.out"
+                }, 0) // Start exactly at the same time as the first typography line
+            .fromTo(".quote-element",
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: "power2.out"
+                }, 0.5); // Start fading in elements shortly after window starts sliding
+
         gsap.to(".animate-marquee", { xPercent: -50, ease: "none", duration: 20, repeat: -1 });
 
         // Skills Animation
