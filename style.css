@@ -142,13 +142,37 @@ nav .glass-panel {
 
 .line-reveal {
     display: block;
-    transform: translateY(100%);
+    opacity: 0;
+    will-change: opacity;
 }
 
 .reveal-left {
     display: block;
-    transform: translateX(-100%);
     opacity: 0;
+    transform: translateX(-30px);
+    will-change: opacity, transform;
+}
+
+.fade-element {
+    opacity: 0;
+    will-change: opacity;
+}
+
+.quote-word {
+    opacity: 0;
+    will-change: opacity;
+}
+
+.quote-element {
+    opacity: 0;
+    will-change: opacity;
+}
+
+.text-justify-last {
+    text-align: justify;
+    text-align-last: justify;
+    display: block;
+    width: 100%;
 }
 
 .section-curve {
